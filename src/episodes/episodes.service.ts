@@ -8,7 +8,7 @@ export class EpisodesService {
   private episodes: Episode[] = [];
 
   findOne({ id }: Pick<Episode, 'id'>) {
-    return this.episodes.filter((episode) => episode.id === id);
+    return this.episodes.find((episode) => episode.id === id);
   }
 
   findAll() {
