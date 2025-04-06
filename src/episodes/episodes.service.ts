@@ -7,15 +7,15 @@ import { randomUUID } from 'crypto';
 export class EpisodesService {
   private episodes: Episode[] = [];
 
-  findOne({ id }: Pick<Episode, 'id'>) {
+  async findOne({ id }: Pick<Episode, 'id'>) {
     return this.episodes.find((episode) => episode.id === id);
   }
 
-  findAll() {
+  async findAll() {
     return this.episodes;
   }
 
-  create({ name, featured }: EpisodeDTO) {
+  async create({ name, featured }: EpisodeDTO) {
     const episodesArray = [...this.episodes];
 
     const hasSameNameInArray = episodesArray.find(

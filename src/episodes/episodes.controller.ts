@@ -8,17 +8,23 @@ export class EpisodesController {
   constructor(private episodesService: EpisodesService) {}
 
   @Get()
-  findAllEpisodes() {
+  async findAllEpisodes() {
     return this.episodesService.findAll();
   }
 
   @Get(':id')
-  findOneEpisode(@Param() { id }: Pick<Episode, 'id'>) {
-    return this.episodesService.findOne({ id });
+  async findOneEpisode(@Param() { id }: Pick<Episode, 'id'>) {
+    const episode = await this.episodesService.findOne({ id });
+
+    if (!episode) {
+      throw new Error('Episode not found');
+    }
+
+    return episode;
   }
 
   @Post()
-  createNewEpisode(@Body() { name, featured }: EpisodeDTO) {
+  async createNewEpisode(@Body() { name, featured }: EpisodeDTO) {
     return this.episodesService.create({ name, featured });
   }
 }
